@@ -1,0 +1,15 @@
+.graticule {
+  fill: none;
+  stroke: rgb(0, 0, 0);
+  stroke-width: .5px;
+  stroke-opacity: .5;
+}
+
+.state {
+  fill: none;
+  stroke: rgb(7, 7, 7);
+}
+
+.map-color {
+  fill: rgb(170, 242, 88);
+}

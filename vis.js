@@ -141,6 +141,30 @@ d3.csv("tsa_claims.csv")
                 d3.select("#" + d.airportCode).remove();
                 svg.selectAll("text, rect").attr("class", "focused");
                 svg.selectAll(".map-color").style("fill", null);
+            }).on("click", function(d,i){
+                d3.select("body").select(".column-table").insert("h1", ".table-frame").text("Loading...");
+                d3.select("body").select(".column-table").select(".table-frame").select("table").select("tbody").selectAll("tr").remove();
+                let claims = data.filter(row => row['Airport Code'] === d.airportCode);
+
+                claims.forEach(function(claimElement, claimIndex){
+                    d3.select("table").select("tbody").append("tr").attr("id", "claim-" + claimIndex);
+                    let claimRow = d3.select("table").select("tbody").select("#claim-" + claimIndex);
+                    claimRow.append("td").text(claimIndex);
+                    claimRow.append("td").text(claimElement['Airline Name']);
+                    claimRow.append("td").text(claimElement['Airport Code']);
+                    claimRow.append("td").text(claimElement['Airport Name']);
+                    claimRow.append("td").text(claimElement['Claim Type']);
+                    claimRow.append("td").text(claimElement['Claim Site']);
+                    claimRow.append("td").text(claimElement['Month']);
+                    claimRow.append("td").text(claimElement['Day']);
+                    claimRow.append("td").text(claimElement['Status']);
+                    claimRow.append("td").text(claimElement['Claim Amount']);
+                    claimRow.append("td").text(claimElement['Item']);
+                    claimRow.append("td").text(claimElement['coordinates']);
+                });
+
+                d3.select("body").select(".column-table").select("h1").remove();
+
             });
         svg.selectAll("text")
             .data(airportData)

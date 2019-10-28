@@ -21,3 +21,22 @@
 .focused {
   opacity: 1.0;
 }
+.column {
+  float: left;
+  padding-left: 8px;
+}
+
+th, td {
+  border: 1px solid black;
+}
+table {
+  border: 1px solid black;
+  width: 900px;
+}
+
+.table-frame {
+  width: 400px;
+  height: 800px;
+  overflow-y: auto;
+  overflow-x: auto;
+}

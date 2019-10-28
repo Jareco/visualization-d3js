@@ -84,6 +84,7 @@ d3.csv("tsa_claims.csv")
             .range([0, barsHeight]);
 
         //Add bars to the map
+        var currentColor;
         svg.selectAll("rect")
             .data(airportData)
             .enter()
@@ -109,8 +110,32 @@ d3.csv("tsa_claims.csv")
                 })
             .attr("transform", function (d) {
                 return "translate(" + projection([d.longitude, d.latitude]) + ")";
-            });
+            })
+            .on("mouseover", function (d, i) {
+                currentColor = d3.select(this).style("fill");
+                d3.select(this).style("fill", "orange");
+                svg.append("text")
+                    .datum(d)
+                    .attr("x",
+                        function (d) {
+                            return -barsWidth;
+                        })
+                    .attr("y",
+                        function (d) {
+                            return -barScale(d.numberOfClaims) - 2;
+                        }).text(function (d) {
+                        return d.numberOfClaims + '';
+                    }).attr("transform", function (d) {
+                        return "translate(" + projection([d.longitude, d.latitude]) + ")"; // this is based on https://gis.stackexchange.com/questions/34769/how-can-i-render-latitude-longitude-coordinates-on-a-map-with-d3
+                    }).attr("id", function(d){
+                        return d.airportCode;
+                    }).attr("fill", "black");
 
+            })
+            .on("mouseout", function (d, i) {
+                d3.select(this).style("fill", currentColor);
+                d3.select("#" + d.airportCode).remove();
+            });
         svg.selectAll("text")
             .data(airportData)
             .enter()

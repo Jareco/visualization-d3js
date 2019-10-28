@@ -113,7 +113,10 @@ d3.csv("tsa_claims.csv")
             })
             .on("mouseover", function (d, i) {
                 currentColor = d3.select(this).style("fill");
+                svg.selectAll("text, rect").attr("class", "unfocused");
+                svg.selectAll(".map-color").style("fill", "lightgray");
                 d3.select(this).style("fill", "orange");
+                d3.select(this).attr("class", "focused");
                 svg.append("text")
                     .datum(d)
                     .attr("x",
@@ -130,11 +133,14 @@ d3.csv("tsa_claims.csv")
                     }).attr("id", function(d){
                         return d.airportCode;
                     }).attr("fill", "black");
-
+                svg.select("#" + d.airportCode).attr("class", "focused");
+                svg.select("#" + d.airportCode + "-name").attr("class", "focused");
             })
             .on("mouseout", function (d, i) {
                 d3.select(this).style("fill", currentColor);
                 d3.select("#" + d.airportCode).remove();
+                svg.selectAll("text, rect").attr("class", "focused");
+                svg.selectAll(".map-color").style("fill", null);
             });
         svg.selectAll("text")
             .data(airportData)
@@ -151,6 +157,8 @@ d3.csv("tsa_claims.csv")
                 return d.airportCode;
             }).attr("transform", function (d) {
                 return "translate(" + projection([d.longitude, d.latitude]) + ")"; // this is based on https://gis.stackexchange.com/questions/34769/how-can-i-render-latitude-longitude-coordinates-on-a-map-with-d3
+            }).attr("id", function(d){
+                return d.airportCode + "-name";
             });
 
 

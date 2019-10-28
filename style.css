@@ -13,3 +13,11 @@
 .map-color {
   fill: rgb(170, 242, 88);
 }
+
+.unfocused {
+  opacity: 0.5;
+}
+
+.focused {
+  opacity: 1.0;
+}

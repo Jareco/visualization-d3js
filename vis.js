@@ -130,7 +130,7 @@ d3.csv("tsa_claims.csv")
                         return d.numberOfClaims + '';
                     }).attr("transform", function (d) {
                         return "translate(" + projection([d.longitude, d.latitude]) + ")"; // this is based on https://gis.stackexchange.com/questions/34769/how-can-i-render-latitude-longitude-coordinates-on-a-map-with-d3
-                    }).attr("id", function(d){
+                    }).attr("id", function (d) {
                         return d.airportCode;
                     }).attr("fill", "black");
                 svg.select("#" + d.airportCode).attr("class", "focused");
@@ -141,12 +141,12 @@ d3.csv("tsa_claims.csv")
                 d3.select("#" + d.airportCode).remove();
                 svg.selectAll("text, rect").attr("class", "focused");
                 svg.selectAll(".map-color").style("fill", null);
-            }).on("click", function(d,i){
+            }).on("click", function (d, i) {
                 d3.select("body").select(".column-table").insert("h1", ".table-frame").text("Loading...");
                 d3.select("body").select(".column-table").select(".table-frame").select("table").select("tbody").selectAll("tr").remove();
                 let claims = data.filter(row => row['Airport Code'] === d.airportCode);
 
-                claims.forEach(function(claimElement, claimIndex){
+                claims.forEach(function (claimElement, claimIndex) {
                     d3.select("table").select("tbody").append("tr").attr("id", "claim-" + claimIndex);
                     let claimRow = d3.select("table").select("tbody").select("#claim-" + claimIndex);
                     claimRow.append("td").text(claimIndex);
@@ -181,7 +181,7 @@ d3.csv("tsa_claims.csv")
                 return d.airportCode;
             }).attr("transform", function (d) {
                 return "translate(" + projection([d.longitude, d.latitude]) + ")"; // this is based on https://gis.stackexchange.com/questions/34769/how-can-i-render-latitude-longitude-coordinates-on-a-map-with-d3
-            }).attr("id", function(d){
+            }).attr("id", function (d) {
                 return d.airportCode + "-name";
             });
 
